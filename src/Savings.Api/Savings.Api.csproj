@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Savings.Application\Savings.Application.csproj" />
     <ProjectReference Include="..\Savings.Comunication\Savings.Comunication.csproj" />
     <ProjectReference Include="..\Savings.Exceptions\Savings.Exceptions.csproj" />
