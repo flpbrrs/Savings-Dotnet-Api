@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Savings.Comunication\Savings.Comunication.csproj" />
+    <ProjectReference Include="..\Savings.Domain\Savings.Domain.csproj" />
+    <ProjectReference Include="..\Savings.Exceptions\Savings.Exceptions.csproj" />
+  </ItemGroup>
+
+</Project>
