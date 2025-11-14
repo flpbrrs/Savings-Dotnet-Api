@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Savings.Comunication.Requests;
+using Savings.Exceptions;
 
 namespace Savings.Application.UseCases.Expenses.Register;
 
@@ -9,18 +10,18 @@ public class RegisterExpenseValidador : AbstractValidator<RegisterExpenseRequest
     {
         RuleFor(x => x.Title)
             .NotEmpty()
-            .WithMessage("title.required");
+            .WithMessage(ResourceErrorCodes.TITLE_REQUIRED);
         RuleFor(x => x.Title)
-            .MinimumLength(4)
-            .WithMessage("title.min-length-4");
+            .MinimumLength(5)
+            .WithMessage(ResourceErrorCodes.TITLE_MIN_LENGHT);
         RuleFor(x => x.Date)
             .LessThanOrEqualTo(DateTime.UtcNow)
-            .WithMessage("date.future");
+            .WithMessage(ResourceErrorCodes.DATE_IN_FUTRE);
         RuleFor(x => x.Amount)
             .GreaterThan(0)
-            .WithMessage("amout.negative");
+            .WithMessage(ResourceErrorCodes.AMOUNT_NEGATIVE);
         RuleFor(x => x.ExpenseType)
             .IsInEnum()
-            .WithMessage("type.invalid");
+            .WithMessage(ResourceErrorCodes.EXPENSE_TYPE_INVALID);
     }
 }

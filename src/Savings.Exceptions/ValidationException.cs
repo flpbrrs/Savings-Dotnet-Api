@@ -2,7 +2,7 @@
 
 namespace Savings.Exceptions;
 
-public class ValidationException(List<string> errors) : SavingsException("Um ou mais erros de validação ocorreram")
+public class ValidationException(List<string> errors) : SavingsException(ResourceErrorMessages.VALIDATION_ERROR)
 {
     public readonly List<string> Errors = errors;
 }

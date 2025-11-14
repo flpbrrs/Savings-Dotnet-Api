@@ -35,6 +35,10 @@ public class ExceptionFilter : IExceptionFilter
     private static void ThrowUnknowException(ExceptionContext context)
     {
         context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
-        context.Result = new ObjectResult(new ApiErrorResponseJson("Um erro inesperado ocorreu. Tente mais tarde novamente."));
+        context.Result = new ObjectResult(
+            new ApiErrorResponseJson(
+                ResourceErrorMessages.UNEXPECTED_ERROR
+            )
+        );
     }
 }
