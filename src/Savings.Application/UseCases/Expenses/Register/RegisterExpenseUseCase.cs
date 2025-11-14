@@ -1,5 +1,4 @@
 ﻿using Savings.Application.Abstractions;
-using Savings.Comunication.Enums;
 using Savings.Comunication.Requests;
 using Savings.Comunication.Responses;
 using Savings.Exceptions;
@@ -20,6 +19,7 @@ public class RegisterExpenseUseCase : IUseCase<RegisterExpenseRequestJson, Regis
                 [.. validationResult.Errors.Select(x => x.ErrorMessage)
             ]);
         }
+
         return Task.FromResult(new RegisterExpenseResponseJson
         {
             Title = request.Title!,

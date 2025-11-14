@@ -21,23 +21,15 @@ public class ExpensesController : ControllerBase
             var result = new RegisterExpenseUseCase().Execute(request).Result;
             return Created(string.Empty, result);
         }
-        catch (ValidationErrors ex)
+        catch (ValidationException ex)
         {
-            return BadRequest(new ApiErrorResponseJson
-            {
-                Message = ex.Message,
-                Errors = ex.Errors
-            });
+            return BadRequest(new ApiErrorResponseJson(message: ex.Message, errors: ex.Errors));
         }
         catch (Exception)
         {
             return StatusCode(
                 StatusCodes.Status500InternalServerError,
-                new ApiErrorResponseJson
-                {
-                    Message = "Um erro inesperado ocorreu. Tente mais tarde novamente.",
-                    Errors = ["server.unknow-error"]
-                }
+                new ApiErrorResponseJson("Um erro inesperado ocorreu. Tente mais tarde novamente.")
             );
         }
     }
