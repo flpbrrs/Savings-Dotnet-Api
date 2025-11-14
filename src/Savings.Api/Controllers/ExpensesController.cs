@@ -2,7 +2,6 @@
 using Savings.Application.UseCases.Expenses.Register;
 using Savings.Comunication.Requests;
 using Savings.Comunication.Responses;
-using Savings.Exceptions;
 
 namespace Savings.Api.Controllers;
 
@@ -16,21 +15,7 @@ public class ExpensesController : ControllerBase
     [ProducesResponseType<ApiErrorResponseJson>(StatusCodes.Status500InternalServerError)]
     public IActionResult Register([FromBody] RegisterExpenseRequestJson request)
     {
-        try
-        {
-            var result = new RegisterExpenseUseCase().Execute(request).Result;
-            return Created(string.Empty, result);
-        }
-        catch (ValidationException ex)
-        {
-            return BadRequest(new ApiErrorResponseJson(message: ex.Message, errors: ex.Errors));
-        }
-        catch (Exception)
-        {
-            return StatusCode(
-                StatusCodes.Status500InternalServerError,
-                new ApiErrorResponseJson("Um erro inesperado ocorreu. Tente mais tarde novamente.")
-            );
-        }
+        var result = new RegisterExpenseUseCase().Execute(request).Result;
+        return Created(string.Empty, result);
     }
 }

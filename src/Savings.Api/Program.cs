@@ -1,4 +1,5 @@
 
+using Savings.Api.Filters;
 using Scalar.AspNetCore;
 
 namespace Savings.Api;
@@ -12,6 +13,7 @@ public class Program
         builder.Services.AddRouting(opt => opt.LowercaseUrls = true);
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
+        builder.Services.AddMvc(opt => opt.Filters.Add<ExceptionFilter>());
 
         var app = builder.Build();
 

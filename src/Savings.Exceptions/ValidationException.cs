@@ -1,6 +1,8 @@
-﻿namespace Savings.Exceptions;
+﻿using Savings.Exceptions.Bases;
 
-public class ValidationException(List<string> errors) : Exception("Um ou mais erros de validação ocorreram")
+namespace Savings.Exceptions;
+
+public class ValidationException(List<string> errors) : SavingsException("Um ou mais erros de validação ocorreram")
 {
     public readonly List<string> Errors = errors;
 }
