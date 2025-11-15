@@ -120,7 +120,7 @@
   <data name="AMOUNT_NEGATIVE" xml:space="preserve">
     <value>amount.negative</value>
   </data>
-  <data name="DATE_IN_FUTRE" xml:space="preserve">
+  <data name="DATE_IN_FUTURE" xml:space="preserve">
     <value>data.in-future</value>
   </data>
   <data name="EXPENSE_TYPE_INVALID" xml:space="preserve">

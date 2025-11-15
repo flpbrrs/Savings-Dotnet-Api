@@ -72,9 +72,9 @@ namespace Savings.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to data.in-future.
         /// </summary>
-        public static string DATE_IN_FUTRE {
+        public static string DATE_IN_FUTURE {
             get {
-                return ResourceManager.GetString("DATE_IN_FUTRE", resourceCulture);
+                return ResourceManager.GetString("DATE_IN_FUTURE", resourceCulture);
             }
         }
         

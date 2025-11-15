@@ -15,7 +15,7 @@ public class RegisterExpenseValidador : AbstractValidator<RegisterExpenseRequest
                 .WithMessage(ResourceErrorCodes.TITLE_MIN_LENGHT);
         RuleFor(x => x.Date)
             .LessThanOrEqualTo(DateTime.UtcNow)
-            .WithMessage(ResourceErrorCodes.DATE_IN_FUTRE);
+            .WithMessage(ResourceErrorCodes.DATE_IN_FUTURE);
         RuleFor(x => x.Amount)
             .GreaterThan(0)
             .WithMessage(ResourceErrorCodes.AMOUNT_NEGATIVE);
