@@ -63,9 +63,9 @@ namespace Savings.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to amount.negative.
         /// </summary>
-        public static string AMOUNT_NEGATIVE {
+        public static string AMOUNT_ZERO_OR_NEGATIVE {
             get {
-                return ResourceManager.GetString("AMOUNT_NEGATIVE", resourceCulture);
+                return ResourceManager.GetString("AMOUNT_ZERO_OR_NEGATIVE", resourceCulture);
             }
         }
         

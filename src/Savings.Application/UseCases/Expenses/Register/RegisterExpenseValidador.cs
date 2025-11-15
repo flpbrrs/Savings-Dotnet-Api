@@ -18,7 +18,7 @@ public class RegisterExpenseValidador : AbstractValidator<RegisterExpenseRequest
             .WithMessage(ResourceErrorCodes.DATE_IN_FUTURE);
         RuleFor(x => x.Amount)
             .GreaterThan(0)
-            .WithMessage(ResourceErrorCodes.AMOUNT_NEGATIVE);
+            .WithMessage(ResourceErrorCodes.AMOUNT_ZERO_OR_NEGATIVE);
         RuleFor(x => x.ExpenseType)
             .IsInEnum()
             .WithMessage(ResourceErrorCodes.EXPENSE_TYPE_INVALID);
