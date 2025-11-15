@@ -10,10 +10,9 @@ public class RegisterExpenseValidador : AbstractValidator<RegisterExpenseRequest
     {
         RuleFor(x => x.Title)
             .NotEmpty()
-            .WithMessage(ResourceErrorCodes.TITLE_REQUIRED);
-        RuleFor(x => x.Title)
+                .WithMessage(ResourceErrorCodes.TITLE_REQUIRED)
             .MinimumLength(5)
-            .WithMessage(ResourceErrorCodes.TITLE_MIN_LENGHT);
+                .WithMessage(ResourceErrorCodes.TITLE_MIN_LENGHT);
         RuleFor(x => x.Date)
             .LessThanOrEqualTo(DateTime.UtcNow)
             .WithMessage(ResourceErrorCodes.DATE_IN_FUTRE);
