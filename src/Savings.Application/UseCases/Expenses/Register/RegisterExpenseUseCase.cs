@@ -5,10 +5,8 @@ using Savings.Exceptions;
 
 namespace Savings.Application.UseCases.Expenses.Register;
 
-public class RegisterExpenseUseCase : IUseCase<RegisterExpenseRequestJson, RegisterExpenseResponseJson>
+public class RegisterExpenseUseCase() : IUseCase<RegisterExpenseRequestJson, RegisterExpenseResponseJson>
 {
-    private readonly List<string> validation = [];
-
     public Task<RegisterExpenseResponseJson> Execute(RegisterExpenseRequestJson request)
     {
         var validationResult = new RegisterExpenseValidador().Validate(request);
