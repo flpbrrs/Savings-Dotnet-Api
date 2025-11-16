@@ -1,4 +1,5 @@
-﻿using Savings.Application.UseCases.Expenses.Register;
+﻿using CommonUtilitiesTest.Request;
+using Savings.Application.UseCases.Expenses.Register;
 using Savings.Comunication.Enums;
 using Savings.Comunication.Requests;
 using Savings.Exceptions;
@@ -13,7 +14,7 @@ public class RegisterExpenseValidatorTest
     public void Should_BeValid_When_RequestIsCorrect()
     {
         #region Arrange
-        var request = CreateValidRequest();
+        var request = RegisterExpenseRequestJsonBuilder.Build();
         #endregion
 
         #region Act
@@ -31,7 +32,7 @@ public class RegisterExpenseValidatorTest
     public void Should_HaveError_When_TitleIsNullOrEmpty(string? title)
     {
         #region Arrange
-        var request = CreateValidRequest();
+        var request = RegisterExpenseRequestJsonBuilder.Build();
         request.Title = title!;
         #endregion
 
@@ -54,7 +55,7 @@ public class RegisterExpenseValidatorTest
     public void Should_HaveError_When_TitleIsTooShort()
     {
         #region Arrange
-        var request = CreateValidRequest();
+        var request = RegisterExpenseRequestJsonBuilder.Build();
         request.Title = "Shrt";
         #endregion
 
@@ -74,7 +75,7 @@ public class RegisterExpenseValidatorTest
     public void Should_HaveError_When_DateIsInTheFuture()
     {
         #region Arrange
-        var request = CreateValidRequest();
+        var request = RegisterExpenseRequestJsonBuilder.Build();
         request.Date = DateTime.Now.AddMonths(1);
         #endregion
 
@@ -93,7 +94,7 @@ public class RegisterExpenseValidatorTest
     public void Should_HaveError_When_AmountIsZeroOrNegative(decimal amount)
     {
         #region Arrange
-        var request = CreateValidRequest();
+        var request = RegisterExpenseRequestJsonBuilder.Build();
         request.Amount = amount;
         #endregion
 
@@ -113,7 +114,7 @@ public class RegisterExpenseValidatorTest
     public void Should_HaveError_When_ExpenseTypeIsInvalid()
     {
         #region Arrange
-        var request = CreateValidRequest();
+        var request = RegisterExpenseRequestJsonBuilder.Build();
         request.ExpenseType = (ExpenseType) 12;
         #endregion
 
@@ -128,18 +129,4 @@ public class RegisterExpenseValidatorTest
         );
         #endregion
     }
-
-    #region Support Methods
-    private static RegisterExpenseRequestJson CreateValidRequest()
-    {
-        return new RegisterExpenseRequestJson
-        {
-            Title = "Valid Expense Title",
-            Description = "Valid Expense Description",
-            Amount = 12.5M,
-            Date = DateTime.UtcNow.AddDays(-2),
-            ExpenseType = Savings.Comunication.Enums.ExpenseType.Credit
-        };
-    }
-    #endregion
 }

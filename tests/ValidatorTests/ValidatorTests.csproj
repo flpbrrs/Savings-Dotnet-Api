@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Savings.Application\Savings.Application.csproj" />
+    <ProjectReference Include="..\CommonUtilitiesTest\CommonUtilitiesTest.csproj" />
   </ItemGroup>
 
   <ItemGroup>
