@@ -1,8 +1,8 @@
 ﻿using CommonUtilitiesTest.Request;
 using Savings.Application.UseCases.Expenses.Register;
 using Savings.Comunication.Enums;
-using Savings.Comunication.Requests;
 using Savings.Exceptions;
+using Shouldly;
 
 namespace ValidatorTests.Expenses.Register;
 
@@ -22,7 +22,7 @@ public class RegisterExpenseValidatorTest
         #endregion
 
         #region Assert
-        Assert.True(requestValidation.IsValid);
+        requestValidation.IsValid.ShouldBeTrue();
         #endregion
     }
 
@@ -41,13 +41,8 @@ public class RegisterExpenseValidatorTest
         #endregion
 
         #region Assert
-        Assert.False(validation.IsValid);
-        Assert.NotEmpty(validation.Errors);
-
-        Assert.Equal(
-            validation.Errors.First().ErrorMessage,
-            ResourceErrorCodes.TITLE_REQUIRED
-        );
+        validation.IsValid.ShouldBeFalse();
+        validation.Errors.First().ErrorMessage.ShouldBe(ResourceErrorCodes.TITLE_REQUIRED);
         #endregion
     }
 
@@ -64,8 +59,8 @@ public class RegisterExpenseValidatorTest
         #endregion
 
         #region Assert
-        Assert.Equal(
-            validation.Errors.First().ErrorMessage,
+        validation.IsValid.ShouldBeFalse();
+        validation.Errors.First().ErrorMessage.ShouldBe(
             ResourceErrorCodes.TITLE_MIN_LENGHT.Replace("{MinLength}", "5")
         );
         #endregion
@@ -84,7 +79,8 @@ public class RegisterExpenseValidatorTest
         #endregion
 
         #region Assert
-        Assert.Equal(validation.Errors.First().ErrorMessage, ResourceErrorCodes.DATE_IN_FUTURE);
+        validation.IsValid.ShouldBeFalse();
+        validation.Errors.First().ErrorMessage.ShouldBe(ResourceErrorCodes.DATE_IN_FUTURE);
         #endregion
     }
 
@@ -103,10 +99,8 @@ public class RegisterExpenseValidatorTest
         #endregion
 
         #region Assert
-        Assert.Equal(
-            validation.Errors.First().ErrorMessage,
-            ResourceErrorCodes.AMOUNT_ZERO_OR_NEGATIVE
-        );
+        validation.IsValid.ShouldBeFalse();
+        validation.Errors.First().ErrorMessage.ShouldBe(ResourceErrorCodes.AMOUNT_ZERO_OR_NEGATIVE);
         #endregion
     }
 
@@ -123,10 +117,8 @@ public class RegisterExpenseValidatorTest
         #endregion
 
         #region Assert
-        Assert.Equal(
-            validation.Errors.First().ErrorMessage,
-            ResourceErrorCodes.EXPENSE_TYPE_INVALID
-        );
+        validation.IsValid.ShouldBeFalse();
+        validation.Errors.First().ErrorMessage.ShouldBe(ResourceErrorCodes.EXPENSE_TYPE_INVALID);
         #endregion
     }
 }
