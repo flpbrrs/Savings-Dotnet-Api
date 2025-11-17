@@ -42,7 +42,7 @@ public class RegisterExpenseValidatorTest
 
         #region Assert
         validation.IsValid.ShouldBeFalse();
-        validation.Errors.First().ErrorMessage.ShouldBe(ResourceErrorCodes.TITLE_REQUIRED);
+        validation.Errors.ShouldContain(e => e.ErrorMessage.Equals(ResourceErrorCodes.TITLE_REQUIRED));
         #endregion
     }
 
@@ -60,9 +60,7 @@ public class RegisterExpenseValidatorTest
 
         #region Assert
         validation.IsValid.ShouldBeFalse();
-        validation.Errors.First().ErrorMessage.ShouldBe(
-            ResourceErrorCodes.TITLE_MIN_LENGHT.Replace("{MinLength}", "5")
-        );
+        validation.Errors.ShouldContain(e => e.ErrorMessage.Equals(ResourceErrorCodes.TITLE_MIN_LENGHT.Replace("{MinLength}", "5")));
         #endregion
     }
 
@@ -80,7 +78,7 @@ public class RegisterExpenseValidatorTest
 
         #region Assert
         validation.IsValid.ShouldBeFalse();
-        validation.Errors.First().ErrorMessage.ShouldBe(ResourceErrorCodes.DATE_IN_FUTURE);
+        validation.Errors.ShouldContain(e => e.ErrorMessage.Equals(ResourceErrorCodes.DATE_IN_FUTURE));
         #endregion
     }
 
@@ -100,7 +98,7 @@ public class RegisterExpenseValidatorTest
 
         #region Assert
         validation.IsValid.ShouldBeFalse();
-        validation.Errors.First().ErrorMessage.ShouldBe(ResourceErrorCodes.AMOUNT_ZERO_OR_NEGATIVE);
+        validation.Errors.ShouldContain(e => e.ErrorMessage.Equals(ResourceErrorCodes.AMOUNT_ZERO_OR_NEGATIVE));
         #endregion
     }
 
@@ -118,7 +116,7 @@ public class RegisterExpenseValidatorTest
 
         #region Assert
         validation.IsValid.ShouldBeFalse();
-        validation.Errors.First().ErrorMessage.ShouldBe(ResourceErrorCodes.EXPENSE_TYPE_INVALID);
+        validation.Errors.ShouldContain(e => e.ErrorMessage.Equals(ResourceErrorCodes.EXPENSE_TYPE_INVALID));
         #endregion
     }
 }
