@@ -13,9 +13,12 @@ public class ExpensesController : ControllerBase
     [ProducesResponseType<RegisterExpenseResponseJson>(StatusCodes.Status201Created)]
     [ProducesResponseType<ApiErrorResponseJson>(StatusCodes.Status400BadRequest)]
     [ProducesResponseType<ApiErrorResponseJson>(StatusCodes.Status500InternalServerError)]
-    public IActionResult Register([FromBody] RegisterExpenseRequestJson request)
+    public async Task<IActionResult> Register(
+        [FromServices] IRegisterExpenseUseCase _usecase,
+        [FromBody] RegisterExpenseRequestJson request
+    )
     {
-        var result = new RegisterExpenseUseCase().Execute(request).Result;
+        var result = await _usecase.Execute(request);
         return Created(string.Empty, result);
     }
 }

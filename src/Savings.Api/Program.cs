@@ -1,5 +1,6 @@
-
 using Savings.Api.Filters;
+using Savings.Application;
+using Savings.Infrastructure;
 using Scalar.AspNetCore;
 
 namespace Savings.Api;
@@ -14,6 +15,9 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
         builder.Services.AddMvc(opt => opt.Filters.Add<ExceptionFilter>());
+
+        builder.Services.AddInfrastructure(builder.Configuration);
+        builder.Services.AddApplication();
 
         var app = builder.Build();
 

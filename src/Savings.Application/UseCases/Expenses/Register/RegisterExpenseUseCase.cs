@@ -1,13 +1,15 @@
-﻿using Savings.Application.Abstractions;
-using Savings.Comunication.Requests;
+﻿using Savings.Comunication.Requests;
 using Savings.Comunication.Responses;
+using Savings.Domain.Entities;
+using Savings.Domain.Enums;
+using Savings.Domain.Repositories.Expenses;
 using Savings.Exceptions;
 
 namespace Savings.Application.UseCases.Expenses.Register;
 
-public class RegisterExpenseUseCase() : IUseCase<RegisterExpenseRequestJson, RegisterExpenseResponseJson>
+public class RegisterExpenseUseCase(IExpensesRepository _expensesRepository) : IRegisterExpenseUseCase
 {
-    public Task<RegisterExpenseResponseJson> Execute(RegisterExpenseRequestJson request)
+    public async Task<RegisterExpenseResponseJson> Execute(RegisterExpenseRequestJson request)
     {
         var validationResult = new RegisterExpenseValidador().Validate(request);
 
@@ -18,9 +20,20 @@ public class RegisterExpenseUseCase() : IUseCase<RegisterExpenseRequestJson, Reg
             ]);
         }
 
-        return Task.FromResult(new RegisterExpenseResponseJson
+        var expense = new Expense 
         {
-            Title = request.Title!,
-        });
+            Title = request.Title,
+            Description = request.Description,
+            Amount = request.Amount,
+            Date = request.Date.ToUniversalTime(),
+            ExpenseType = (ExpenseType) request.ExpenseType
+        };
+
+        await _expensesRepository.Register(expense);
+
+        return new RegisterExpenseResponseJson
+        {
+            Title = expense.Title,
+        };
     }
 }
