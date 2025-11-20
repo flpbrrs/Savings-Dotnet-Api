@@ -8,7 +8,5 @@ internal class ExpensesRepository(SavingsDbContext _context) : IExpensesReposito
     public async Task Register(Expense expense)
     {
         _context.Expenses.Add(expense);
-
-        await _context.SaveChangesAsync();
     }
 }

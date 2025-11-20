@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Savings.Domain.Repositories;
 using Savings.Domain.Repositories.Expenses;
 using Savings.Infrastructure.Database;
 using Savings.Infrastructure.Database.Repositories;
@@ -17,6 +18,8 @@ public static class DependencyInjectionExtension
         });
 
         services.AddScoped<IExpensesRepository, ExpensesRepository>();
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }
