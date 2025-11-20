@@ -1,7 +1,7 @@
-﻿using Savings.Comunication.Requests;
+﻿using Savings.Application.Mappers;
+using Savings.Comunication.Requests;
 using Savings.Comunication.Responses;
 using Savings.Domain.Entities;
-using Savings.Domain.Enums;
 using Savings.Domain.Repositories;
 using Savings.Domain.Repositories.Expenses;
 using Savings.Exceptions;
@@ -21,22 +21,12 @@ public class RegisterExpenseUseCase(IExpensesRepository _expensesRepository, IUn
             ]);
         }
 
-        var expense = new Expense 
-        {
-            Title = request.Title,
-            Description = request.Description,
-            Amount = request.Amount,
-            Date = request.Date.ToUniversalTime(),
-            ExpenseType = (ExpenseType) request.ExpenseType
-        };
+        Expense expense = request.ToEntity();
 
         await _expensesRepository.Register(expense);
 
         await _UoW.Commit();
 
-        return new RegisterExpenseResponseJson
-        {
-            Title = expense.Title,
-        };
+        return expense.ToResponse();
     }
 }
