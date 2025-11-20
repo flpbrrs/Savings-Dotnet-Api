@@ -14,7 +14,9 @@ public class Program
         builder.Services.AddRouting(opt => opt.LowercaseUrls = true);
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
-        builder.Services.AddMvc(opt => opt.Filters.Add<ExceptionFilter>());
+
+        builder.Services.AddExceptionHandler<ApiExceptionHandler>();
+        builder.Services.AddProblemDetails();
 
         builder.Services.AddInfrastructure(builder.Configuration);
         builder.Services.AddApplication();
@@ -27,6 +29,7 @@ public class Program
             app.MapScalarApiReference();
         }
 
+        app.UseExceptionHandler();
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();
