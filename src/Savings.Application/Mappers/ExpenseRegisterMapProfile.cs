@@ -4,7 +4,7 @@ using Savings.Domain.Entities;
 
 namespace Savings.Application.Mappers;
 
-public static class ExpenseMapProfile
+public static class ExpenseRegisterMapProfile
 {
     public static Expense ToEntity(this RegisterExpenseRequestJson request)
     {
@@ -25,10 +25,5 @@ public static class ExpenseMapProfile
             Id = entity.Id,
             Title = entity.Title
         };
-    }
-    
-    public static IList<RegisterExpenseResponseJson> ToResponseList(this IList<Expense> entities)
-    {
-        return [.. entities.Select(e => e.ToResponse())];
     }
 }
