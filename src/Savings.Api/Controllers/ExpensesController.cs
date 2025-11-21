@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Savings.Application.UseCases.Expenses.List;
 using Savings.Application.UseCases.Expenses.Register;
 using Savings.Comunication.Requests;
 using Savings.Comunication.Responses;
@@ -20,5 +21,23 @@ public class ExpensesController : ControllerBase
     {
         var result = await _usecase.Execute(request);
         return Created(string.Empty, result);
+    }
+
+    [HttpGet]
+    [ProducesResponseType<PageResult<ListPageExpensesResponseJson>>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType<ApiErrorResponseJson>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<ApiErrorResponseJson>(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> List(
+        [FromServices] IListExpensesUseCase _usecase,
+        [FromQuery] ListPageExpensesRequestJson request
+    )
+    {
+        var result = await _usecase.Execute(request);
+
+        if (result.Items.Count == 0)
+            return NoContent();
+
+        return Ok(result);
     }
 }

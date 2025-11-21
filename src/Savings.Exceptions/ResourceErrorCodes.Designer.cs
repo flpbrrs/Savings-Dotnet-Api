@@ -19,7 +19,7 @@ namespace Savings.Exceptions {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ResourceErrorCodes {
@@ -84,6 +84,51 @@ namespace Savings.Exceptions {
         public static string EXPENSE_TYPE_INVALID {
             get {
                 return ResourceManager.GetString("EXPENSE_TYPE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to final-date.before-initial.
+        /// </summary>
+        public static string FINAL_DATE_IN_PAST {
+            get {
+                return ResourceManager.GetString("FINAL_DATE_IN_PAST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to page-number.negative.
+        /// </summary>
+        public static string PAGE_NUMBER_IS_NEGATIVE {
+            get {
+                return ResourceManager.GetString("PAGE_NUMBER_IS_NEGATIVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to page-size.negative.
+        /// </summary>
+        public static string PAGE_SIZE_IS_NEGATIVE {
+            get {
+                return ResourceManager.GetString("PAGE_SIZE_IS_NEGATIVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to page-size.too-long.
+        /// </summary>
+        public static string PAGE_SIZE_IS_TOO_LONG {
+            get {
+                return ResourceManager.GetString("PAGE_SIZE_IS_TOO_LONG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to search-term.too-short.
+        /// </summary>
+        public static string SEARCH_TERM_TOO_SHORT {
+            get {
+                return ResourceManager.GetString("SEARCH_TERM_TOO_SHORT", resourceCulture);
             }
         }
         

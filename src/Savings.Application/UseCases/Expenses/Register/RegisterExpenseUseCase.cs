@@ -15,11 +15,7 @@ public class RegisterExpenseUseCase(IExpensesRepository _expensesRepository, IUn
         var validationResult = new RegisterExpenseValidador().Validate(request);
 
         if (!validationResult.IsValid)
-        {
-            throw new ValidationException(
-                [.. validationResult.Errors.Select(x => x.ErrorMessage)
-            ]);
-        }
+            throw new ValidationException([.. validationResult.Errors.Select(x => x.ErrorMessage)]);
 
         Expense expense = request.ToEntity();
 
