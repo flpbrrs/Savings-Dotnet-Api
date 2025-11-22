@@ -24,7 +24,7 @@ public class ExpensesController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType<PageResult<ListPageExpensesResponseJson>>(StatusCodes.Status200OK)]
+    [ProducesResponseType<PageResult<FullExpenseResponseJson>>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType<ApiErrorResponseJson>(StatusCodes.Status400BadRequest)]
     [ProducesResponseType<ApiErrorResponseJson>(StatusCodes.Status500InternalServerError)]

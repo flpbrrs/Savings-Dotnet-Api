@@ -8,7 +8,7 @@ namespace Savings.Application.UseCases.Expenses.List;
 
 public class ListExpensesUseCase(IExpensesRepository _expensesRepository) : IListExpensesUseCase
 {
-    public async Task<PageResult<ListPageExpensesResponseJson>> Execute(ListPageExpensesRequestJson filters)
+    public async Task<PageResult<FullExpenseResponseJson>> Execute(ListPageExpensesRequestJson filters)
     {
         // TODO: Adicionar o userId para receber apenas as expenses do usuário autenticado
 
@@ -28,7 +28,7 @@ public class ListExpensesUseCase(IExpensesRepository _expensesRepository) : ILis
             title: filters.Title
         );
 
-        return new PageResult<ListPageExpensesResponseJson>
+        return new PageResult<FullExpenseResponseJson>
         {
             Items = filteredExpenses.ToResponseList(),
             TotalCount = totalCount,

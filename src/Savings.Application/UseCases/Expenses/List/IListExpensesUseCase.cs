@@ -4,4 +4,4 @@ using Savings.Comunication.Responses;
 
 namespace Savings.Application.UseCases.Expenses.List;
 
-public interface IListExpensesUseCase : IUseCase<ListPageExpensesRequestJson, PageResult<ListPageExpensesResponseJson>> { }
+public interface IListExpensesUseCase : IUseCase<ListPageExpensesRequestJson, PageResult<FullExpenseResponseJson>> { }

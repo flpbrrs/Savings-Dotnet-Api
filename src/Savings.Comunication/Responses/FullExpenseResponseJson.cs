@@ -1,6 +1,6 @@
 ﻿namespace Savings.Comunication.Responses;
 
-public class ListPageExpensesResponseJson
+public class FullExpenseResponseJson
 {
     public long Id { get; set; }
     public string Title { get; set; } = string.Empty;

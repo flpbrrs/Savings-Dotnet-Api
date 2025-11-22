@@ -6,9 +6,9 @@ namespace Savings.Application.Mappers;
 
 public static class ExpensesListMapProfile
 {
-    private static ListPageExpensesResponseJson ToListResponse(this Expense entity)
+    private static FullExpenseResponseJson ToListResponse(this Expense entity)
     {
-        return new ListPageExpensesResponseJson
+        return new FullExpenseResponseJson
         {
             Id = entity.Id,
             Title = entity.Title,
@@ -19,7 +19,7 @@ public static class ExpensesListMapProfile
         };
     }
 
-    public static List<ListPageExpensesResponseJson> ToResponseList(this List<Expense> entities)
+    public static List<FullExpenseResponseJson> ToResponseList(this List<Expense> entities)
     {
         return [.. entities.Select(e => e.ToListResponse())];
     }
