@@ -10,6 +10,8 @@ public class ListExpensesUseCase(IExpensesRepository _expensesRepository) : ILis
 {
     public async Task<PageResult<ListPageExpensesResponseJson>> Execute(ListPageExpensesRequestJson filters)
     {
+        // TODO: Adicionar o userId para receber apenas as expenses do usuário autenticado
+
         var filtersAreValid = new ListExpensesValidator().Validate(filters);
 
         if (!filtersAreValid.IsValid)
