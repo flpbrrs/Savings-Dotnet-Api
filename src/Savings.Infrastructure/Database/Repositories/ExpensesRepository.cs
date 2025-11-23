@@ -6,6 +6,13 @@ namespace Savings.Infrastructure.Database.Repositories;
 
 internal class ExpensesRepository(SavingsDbContext _context) : IExpensesRepository
 {
+    public Task<Expense?> GetById(long id)
+    {
+        return _context.Expenses
+            .AsNoTracking()
+            .FirstOrDefaultAsync(e => e.Id == id);
+    }
+
     public async Task<(List<Expense> Expenses, int TotalCount)> List(
         DateTime? initialDate,
         DateTime? finalDate,

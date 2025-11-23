@@ -6,7 +6,7 @@ namespace Savings.Application.Mappers;
 
 public static class ExpensesListMapProfile
 {
-    private static FullExpenseResponseJson ToListResponse(this Expense entity)
+    public static FullExpenseResponseJson ToFullExpenseResponse(this Expense entity)
     {
         return new FullExpenseResponseJson
         {
@@ -21,7 +21,7 @@ public static class ExpensesListMapProfile
 
     public static List<FullExpenseResponseJson> ToResponseList(this List<Expense> entities)
     {
-        return [.. entities.Select(e => e.ToListResponse())];
+        return [.. entities.Select(e => e.ToFullExpenseResponse())];
     }
 }
 

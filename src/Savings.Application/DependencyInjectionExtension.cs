@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Savings.Application.UseCases.Expenses.GetById;
 using Savings.Application.UseCases.Expenses.List;
 using Savings.Application.UseCases.Expenses.Register;
 
@@ -10,6 +11,7 @@ public static class DependencyInjectionExtension
     {
         services.AddScoped<IRegisterExpenseUseCase, RegisterExpenseUseCase>();
         services.AddScoped<IListExpensesUseCase, ListExpensesUseCase>();
+        services.AddScoped<IGetExpenseByIdUseCase, GetExpenseByIdUseCase>();
 
         return services;
     }
