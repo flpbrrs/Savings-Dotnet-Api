@@ -5,7 +5,7 @@ using Savings.Exceptions;
 
 namespace Savings.Application.UseCases.Expenses.GetById;
 
-public class GetExpenseByIdUseCase(IExpensesRepository _expensesRepository) : IGetExpenseByIdUseCase
+public class GetExpenseByIdUseCase(IReadOnlyExpensesRepository _expensesRepository) : IGetExpenseByIdUseCase
 {
     public async Task<FullExpenseResponseJson> Execute(long id)
     {

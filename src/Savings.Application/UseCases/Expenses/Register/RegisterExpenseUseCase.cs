@@ -8,7 +8,7 @@ using Savings.Exceptions;
 
 namespace Savings.Application.UseCases.Expenses.Register;
 
-public class RegisterExpenseUseCase(IExpensesRepository _expensesRepository, IUnitOfWork _UoW) : IRegisterExpenseUseCase
+public class RegisterExpenseUseCase(IWriteOnlyExpensesRepository _expensesRepository, IUnitOfWork _UoW) : IRegisterExpenseUseCase
 {
     public async Task<RegisterExpenseResponseJson> Execute(RegisterExpenseRequestJson request)
     {

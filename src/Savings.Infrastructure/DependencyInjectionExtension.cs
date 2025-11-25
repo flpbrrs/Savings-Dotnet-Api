@@ -17,7 +17,8 @@ public static class DependencyInjectionExtension
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
         });
 
-        services.AddScoped<IExpensesRepository, ExpensesRepository>();
+        services.AddScoped<IReadOnlyExpensesRepository, ExpensesRepository>();
+        services.AddScoped<IWriteOnlyExpensesRepository, ExpensesRepository>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

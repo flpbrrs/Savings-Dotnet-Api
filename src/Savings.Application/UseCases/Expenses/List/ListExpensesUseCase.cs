@@ -6,7 +6,7 @@ using Savings.Exceptions;
 
 namespace Savings.Application.UseCases.Expenses.List;
 
-public class ListExpensesUseCase(IExpensesRepository _expensesRepository) : IListExpensesUseCase
+public class ListExpensesUseCase(IReadOnlyExpensesRepository _expensesRepository) : IListExpensesUseCase
 {
     public async Task<PageResult<FullExpenseResponseJson>> Execute(ListPageExpensesRequestJson filters)
     {

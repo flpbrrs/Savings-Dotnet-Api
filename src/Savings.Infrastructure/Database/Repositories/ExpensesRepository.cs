@@ -5,7 +5,7 @@ using Savings.Domain.Repositories.Expenses;
 
 namespace Savings.Infrastructure.Database.Repositories;
 
-internal class ExpensesRepository(SavingsDbContext _context) : IExpensesRepository
+internal class ExpensesRepository(SavingsDbContext _context) : IReadOnlyExpensesRepository, IWriteOnlyExpensesRepository
 {
     public Task<Expense?> GetById(long id)
     {
