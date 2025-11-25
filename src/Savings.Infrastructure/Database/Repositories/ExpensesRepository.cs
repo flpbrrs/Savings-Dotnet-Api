@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Savings.Domain.Criteria;
 using Savings.Domain.Entities;
 using Savings.Domain.Repositories.Expenses;
 
@@ -13,36 +14,31 @@ internal class ExpensesRepository(SavingsDbContext _context) : IExpensesReposito
             .FirstOrDefaultAsync(e => e.Id == id);
     }
 
-    public async Task<(List<Expense> Expenses, int TotalCount)> List(
-        DateTime? initialDate,
-        DateTime? finalDate,
-        string? title,
-        int page = 1,
-        int pageSize = 10
-    )
+    public async Task<(List<Expense> Expenses, int TotalCount)> List(ListExpensesCriteria criteria)
     {
         var query = _context.Expenses.AsNoTracking();
 
-        if (initialDate.HasValue)
-            query = query.Where(e => e.Date >= initialDate.Value);
-
-        if (finalDate.HasValue)
+        if (criteria.DateRange is not null)
         {
-            var endOfDay = finalDate.Value.AddDays(1).AddTicks(-1);
-            query = query.Where(e => e.Date <= endOfDay);
+            if (criteria.DateRange.InitialDate.HasValue)
+                query = query.Where(e => e.Date >= criteria.DateRange.InitialDate.Value);
+
+            if (criteria.DateRange.FinalDate.HasValue)
+            {
+                var endOfDay = criteria.DateRange.FinalDate.Value.AddDays(1).AddTicks(-1);
+                query = query.Where(e => e.Date <= endOfDay);
+            }
         }
 
-        if(!string.IsNullOrWhiteSpace(title))
-            query = query.Where(e => e.Title.Contains(title));
+        if(!string.IsNullOrWhiteSpace(criteria.Title))
+            query = query.Where(e => e.Title.Contains(criteria.Title));
 
         int totalCount = await query.CountAsync();
 
-        if (page < 1) page = 1;
-
         var expenseList = await query
             .OrderByDescending(e => e.Date)
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
+            .Skip((criteria.Pagination.Page - 1) * criteria.Pagination.PageSize)
+            .Take(criteria.Pagination.PageSize)
             .ToListAsync();
 
         return (expenseList, totalCount);

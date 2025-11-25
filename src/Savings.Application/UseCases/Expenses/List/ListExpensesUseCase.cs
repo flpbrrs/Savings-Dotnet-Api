@@ -17,23 +17,16 @@ public class ListExpensesUseCase(IExpensesRepository _expensesRepository) : ILis
         if (!filtersAreValid.IsValid)
             throw new ValidationException([.. filtersAreValid.Errors.Select(x => x.ErrorMessage)]);
 
-        var pageNumber = filters.Number < 1 ? 1 : filters.Number;
-        var pageSize = filters.Size < 1 ? 10 : filters.Size;
+        var criteria = filters.ToListExpenseCriteria();
 
-        var (filteredExpenses, totalCount) = await _expensesRepository.List(
-            page: pageNumber,
-            pageSize: pageSize,
-            initialDate: filters.InitialDate,
-            finalDate: filters.FinalDate,
-            title: filters.Title
-        );
+        var (filteredExpenses, totalCount) = await _expensesRepository.List(criteria);
 
         return new PageResult<FullExpenseResponseJson>
         {
             Items = filteredExpenses.ToResponseList(),
             TotalCount = totalCount,
-            CurrentPage = pageNumber,
-            PageSize = pageSize
+            CurrentPage = criteria.Pagination.Page,
+            PageSize = criteria.Pagination.PageSize
         };
     }
 }
