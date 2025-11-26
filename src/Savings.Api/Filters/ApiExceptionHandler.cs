@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Savings.Comunication.Responses;
 using Savings.Exceptions;
+using Savings.Exceptions.Bases;
 
 namespace Savings.Api.Filters;
 
@@ -14,9 +15,14 @@ public class ApiExceptionHandler : IExceptionHandler
     {
         var (statusCode, response) = exception switch
         {
-            ValidationException ex => (StatusCodes.Status400BadRequest, new ApiErrorResponseJson(ex.Message, ex.Errors)),
-            ResourceNotFoundException ex => (StatusCodes.Status404NotFound, new ApiErrorResponseJson(ex.Message, [ex.Resource])),
-            _ => (StatusCodes.Status500InternalServerError, new ApiErrorResponseJson(ResourceErrorMessages.UNEXPECTED_ERROR))
+            SavingsException ex => (
+                ex.StatusCode,
+                new ApiErrorResponseJson(ex.Message, ex.GetErrorList() ?? [])
+            ),
+            _ => (
+                StatusCodes.Status500InternalServerError,
+                new ApiErrorResponseJson(ResourceErrorMessages.UNEXPECTED_ERROR)
+            )
         };
 
         httpContext.Response.StatusCode = statusCode;

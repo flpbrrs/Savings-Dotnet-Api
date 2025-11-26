@@ -1,3 +1,7 @@
 ﻿namespace Savings.Exceptions.Bases;
 
-public class SavingsException(string message) : SystemException(message) { }
+public abstract class SavingsException(string message) : SystemException(message) 
+{
+    public abstract int StatusCode { get; }
+    public abstract List<string> GetErrorList();
+}
