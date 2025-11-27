@@ -20,4 +20,13 @@ public class Expense
     public ExpenseType ExpenseType { get; set; }
     [Column("date")]
     public DateTime Date { get; set; }
+
+    public void Update(string title, string? description, decimal amount, ExpenseType expenseType, DateTime date)
+    {
+        Title = title;
+        Description = description;
+        Amount = amount;
+        ExpenseType = expenseType;
+        Date = date;
+    }
 }

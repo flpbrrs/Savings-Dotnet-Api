@@ -5,12 +5,21 @@ using Savings.Domain.Repositories.Expenses;
 
 namespace Savings.Infrastructure.Database.Repositories;
 
-internal class ExpensesRepository(SavingsDbContext _context) : IReadOnlyExpensesRepository, IWriteOnlyExpensesRepository
+internal class ExpensesRepository(SavingsDbContext _context) 
+    : IReadOnlyExpensesRepository,
+      IWriteOnlyExpensesRepository,
+      IUpdateOnlyExpensesRepository
 {
-    public Task<Expense?> GetById(long id)
+    Task<Expense?> IReadOnlyExpensesRepository.GetById(long id)
     {
         return _context.Expenses
             .AsNoTracking()
+            .FirstOrDefaultAsync(e => e.Id == id);
+    }
+
+    Task<Expense?> IUpdateOnlyExpensesRepository.GetById(long id)
+    {
+        return _context.Expenses
             .FirstOrDefaultAsync(e => e.Id == id);
     }
 
@@ -58,5 +67,10 @@ internal class ExpensesRepository(SavingsDbContext _context) : IReadOnlyExpenses
         _context.Expenses.Remove(expense);
 
         return true;
+    }
+
+    public void Update(Expense expense)
+    {
+        _context.Expenses.Update(expense);
     }
 }

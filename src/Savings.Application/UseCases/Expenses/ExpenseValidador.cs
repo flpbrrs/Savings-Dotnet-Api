@@ -2,11 +2,11 @@
 using Savings.Comunication.Requests;
 using Savings.Exceptions;
 
-namespace Savings.Application.UseCases.Expenses.Register;
+namespace Savings.Application.UseCases.Expenses;
 
-public class RegisterExpenseValidador : AbstractValidator<RegisterExpenseRequestJson>
+public class ExpenseValidador : AbstractValidator<ExpenseRequestJson>
 {
-    public RegisterExpenseValidador()
+    public ExpenseValidador()
     {
         RuleFor(x => x.Title)
             .NotEmpty().WithMessage(ResourceErrorCodes.TITLE_REQUIRED)

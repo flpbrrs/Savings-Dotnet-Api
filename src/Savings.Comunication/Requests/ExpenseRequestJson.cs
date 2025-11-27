@@ -2,7 +2,7 @@
 
 namespace Savings.Comunication.Requests;
 
-public class RegisterExpenseRequestJson
+public class ExpenseRequestJson
 {
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;

@@ -3,6 +3,7 @@ using Savings.Application.UseCases.Expenses.Delete;
 using Savings.Application.UseCases.Expenses.GetById;
 using Savings.Application.UseCases.Expenses.List;
 using Savings.Application.UseCases.Expenses.Register;
+using Savings.Application.UseCases.Expenses.Update;
 
 namespace Savings.Application;
 
@@ -14,6 +15,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IListExpensesUseCase, ListExpensesUseCase>();
         services.AddScoped<IGetExpenseByIdUseCase, GetExpenseByIdUseCase>();
         services.AddScoped<IDeleteExpenseUseCase, DeleteExpenseUseCase>();
+        services.AddScoped<IUpdateExpenseUseCase, UpdateExpenseUseCase>();
 
         return services;
     }

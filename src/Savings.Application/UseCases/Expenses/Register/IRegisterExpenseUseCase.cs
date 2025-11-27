@@ -4,4 +4,4 @@ using Savings.Comunication.Responses;
 
 namespace Savings.Application.UseCases.Expenses.Register;
 
-public interface IRegisterExpenseUseCase : IUseCase<RegisterExpenseRequestJson, RegisterExpenseResponseJson> { }
+public interface IRegisterExpenseUseCase : IUseCase<ExpenseRequestJson, RegisterExpenseResponseJson> { }

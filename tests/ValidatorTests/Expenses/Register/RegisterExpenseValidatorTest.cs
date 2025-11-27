@@ -1,5 +1,5 @@
 ﻿using CommonUtilitiesTest.Request;
-using Savings.Application.UseCases.Expenses.Register;
+using Savings.Application.UseCases.Expenses;
 using Savings.Comunication.Enums;
 using Savings.Exceptions;
 using Shouldly;
@@ -8,7 +8,7 @@ namespace ValidatorTests.Expenses.Register;
 
 public class RegisterExpenseValidatorTest
 {
-    private readonly RegisterExpenseValidador validator = new();
+    private readonly ExpenseValidador validator = new();
 
     [Fact]
     public void Should_BeValid_When_RequestIsCorrect()

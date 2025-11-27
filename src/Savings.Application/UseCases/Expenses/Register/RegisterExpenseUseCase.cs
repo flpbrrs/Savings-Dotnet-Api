@@ -10,9 +10,9 @@ namespace Savings.Application.UseCases.Expenses.Register;
 
 public class RegisterExpenseUseCase(IWriteOnlyExpensesRepository _expensesRepository, IUnitOfWork _UoW) : IRegisterExpenseUseCase
 {
-    public async Task<RegisterExpenseResponseJson> Execute(RegisterExpenseRequestJson request)
+    public async Task<RegisterExpenseResponseJson> Execute(ExpenseRequestJson request)
     {
-        var validationResult = new RegisterExpenseValidador().Validate(request);
+        var validationResult = new ExpenseValidador().Validate(request);
 
         if (!validationResult.IsValid)
             throw new ValidationException([.. validationResult.Errors.Select(x => x.ErrorMessage)]);

@@ -3,6 +3,7 @@ using Savings.Application.UseCases.Expenses.Delete;
 using Savings.Application.UseCases.Expenses.GetById;
 using Savings.Application.UseCases.Expenses.List;
 using Savings.Application.UseCases.Expenses.Register;
+using Savings.Application.UseCases.Expenses.Update;
 using Savings.Comunication.Requests;
 using Savings.Comunication.Responses;
 
@@ -18,7 +19,7 @@ public class ExpensesController : ControllerBase
     [ProducesResponseType<ApiErrorResponseJson>(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Register(
         [FromServices] IRegisterExpenseUseCase _usecase,
-        [FromBody] RegisterExpenseRequestJson request
+        [FromBody] ExpenseRequestJson request
     )
     {
         var result = await _usecase.Execute(request);
@@ -56,6 +57,27 @@ public class ExpensesController : ControllerBase
         var result = await _usecase.Execute(id);
 
         return Ok(result);
+    }
+
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType<ApiErrorResponseJson>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<ApiErrorResponseJson>(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<ApiErrorResponseJson>(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> UpdateById
+    (
+        [FromServices] IUpdateExpenseUseCase _usecase,
+        [FromRoute] long id,
+        [FromBody] ExpenseRequestJson request
+    )
+    {
+        await _usecase.Execute(new UpdateExpenseRequestFilterJson
+        {
+            Id = id,
+            UpdatedExpense = request
+        });
+
+        return NoContent();
     }
 
     [HttpDelete("{id}")]
