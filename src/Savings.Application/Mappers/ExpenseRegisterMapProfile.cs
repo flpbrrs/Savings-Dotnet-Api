@@ -11,14 +11,13 @@ public static class ExpenseRegisterMapProfile
 {
     public static Expense ToEntity(this ExpenseRequestJson request)
     {
-        return new Expense
-        {
-            Title = request.Title,
-            Description = request.Description,
-            Amount = request.Amount,
-            Date = request.Date.ToUniversalTime(),
-            ExpenseType = (Domain.Enums.ExpenseType) request.ExpenseType
-        };
+        return new Expense(
+            title: request.Title,
+            description: request.Description,
+            amount: request.Amount,
+            date: request.Date.ToUniversalTime(),
+            expenseType: (Domain.Enums.ExpenseType) request.ExpenseType
+        );
     }
 
     public static RegisterExpenseResponseJson ToResponse(this Expense entity)
@@ -30,7 +29,7 @@ public static class ExpenseRegisterMapProfile
         };
     }
 
-    public static FullExpenseResponseJson ToEntity(this Expense entity)
+    public static FullExpenseResponseJson ToFullResponse(this Expense entity)
     {
         return new FullExpenseResponseJson
         {
@@ -43,9 +42,9 @@ public static class ExpenseRegisterMapProfile
         };
     }
 
-    public static List<FullExpenseResponseJson> ToResponse(this List<Expense> entities)
+    public static List<FullExpenseResponseJson> ToFullResponseList(this List<Expense> entities)
     {
-        return [.. entities.Select(e => e.ToEntity())];
+        return [.. entities.Select(e => e.ToFullResponse())];
     }
 
     public static ListExpensesCriteria ToListExpenseCriteria(this ListPageExpensesRequestJson request)
