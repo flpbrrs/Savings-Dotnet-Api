@@ -11,6 +11,6 @@ public class GetExpenseByIdUseCase(IReadOnlyExpensesRepository _expensesReposito
     {
         var expense = await _expensesRepository.GetById(id);
 
-        return expense?.ToFullExpenseResponse() ?? throw new ResourceNotFoundException("expense", id);
+        return expense?.ToEntity() ?? throw new ResourceNotFoundException("expense", id);
     }
 }

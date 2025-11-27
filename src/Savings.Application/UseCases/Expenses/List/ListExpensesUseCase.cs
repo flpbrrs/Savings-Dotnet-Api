@@ -23,7 +23,7 @@ public class ListExpensesUseCase(IReadOnlyExpensesRepository _expensesRepository
 
         return new PageResult<FullExpenseResponseJson>
         {
-            Items = filteredExpenses.ToResponseList(),
+            Items = filteredExpenses.ToResponse(),
             TotalCount = totalCount,
             CurrentPage = criteria.Pagination.Page,
             PageSize = criteria.Pagination.PageSize
