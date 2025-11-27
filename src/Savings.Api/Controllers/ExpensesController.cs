@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Savings.Application.UseCases.Expenses.Delete;
 using Savings.Application.UseCases.Expenses.GetById;
 using Savings.Application.UseCases.Expenses.List;
 using Savings.Application.UseCases.Expenses.Register;
@@ -55,5 +56,19 @@ public class ExpensesController : ControllerBase
         var result = await _usecase.Execute(id);
 
         return Ok(result);
+    }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType<ApiErrorResponseJson>(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<ApiErrorResponseJson>(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> DeleteById(
+        [FromServices] IDeleteExpenseUseCase _usecase,
+        [FromRoute] long id
+    )
+    {
+        await _usecase.Execute(id);
+
+        return NoContent();
     }
 }

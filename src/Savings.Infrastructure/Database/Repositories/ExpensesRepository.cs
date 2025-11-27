@@ -48,4 +48,15 @@ internal class ExpensesRepository(SavingsDbContext _context) : IReadOnlyExpenses
     {
         _context.Expenses.Add(expense);
     }
+
+    public async Task<bool> Delete(long id)
+    {
+        var expense = await _context.Expenses.FirstOrDefaultAsync(e => e.Id == id);
+
+        if (expense is null) return false;
+
+        _context.Expenses.Remove(expense);
+
+        return true;
+    }
 }
