@@ -1,77 +1,104 @@
 # 💵 Savings API
 
-API destinada para o controle de despesas.
+![.NET](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
-Este projeto é uma API .NET 9 construída com Entity Framework Core e PostgreSQL, projetada para rodar em contêineres Docker.
+> **API RESTful para gestão financeira pessoal, desenvolvida com foco em Clean Architecture, DDD e boas práticas de engenharia de software.**
 
-## 🛠️ Pré-requisitos
+Esta aplicação foi construída para demonstrar a implementação de um sistema escalável utilizando o ecossistema moderno do **.NET 9**, containerização e testes automatizados.
 
-Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
+---
 
-- .NET 9 SDK
-- Docker Desktop
-- Git
+## 🚀 Tecnologias e Práticas
 
-## ⚙️ Configuração do Ambiente
+O projeto utiliza uma stack moderna para performance e manutenibilidade:
 
-Você precisa configurar os segredos dependendo de como vai executar a aplicação.
+- **.NET 9 SDK**: Umas das versões mais recentes do framework.
+- **Entity Framework Core**: ORM para manipulação de dados.
+- **PostgreSQL**: Banco de dados relacional robusto.
+- **Docker & Docker Compose**: Para orquestração de containers e ambiente de desenvolvimento reprodutível.
+- **FluentValidation**: Para validação de regras de negócio e inputs de forma fluida.
+- **Mappers de entidade personalizados**: Para mapeamento eficiente entre Entidades e DTOs (Request/Response).
+- **Scalar UI**: Interface moderna para documentação de API.
+- **XUnit & Bogus**: Para testes de unidade e geração de dados falsos (fakes) para cenários de teste.
 
-### 1. Para rodar com Docker Compose (Recomendado)
+## 🏛️ Arquitetura
 
-Este método sobe a API e o Banco de Dados juntos, simulando o ambiente de produção.
+O projeto segue os princípios da **Clean Architecture** e **Domain-Driven Design (DDD)**, organizado nas seguintes camadas:
 
-1. Crie o arquivo de variáveis: Na raiz do projeto, duplique o arquivo .env.example e renomeie para .env.
+1.  **Domain**: Contém as Entidades, Value Objects, Interfaces de Repositórios e Exceções de Domínio.
+2.  **Application**: Contém os Casos de Uso (Use Cases), validações e regras de orquestração.
+3.  **Infrastructure**: Implementação de acesso a dados (EF Core), Repositórios, Unit of Work e configurações de banco.
+4.  **API**: Camada de entrada (Controllers), Filtros de Exceção e Injeção de Dependência.
+5.  **Communication**: Contratos de dados (DTOs/View Models) compartilhados.
 
-```Bash
+---
+
+## ✨ Funcionalidades
+
+- **CRUD Completo de Despesas**: Registro, atualização, remoção e leitura detalhada.
+- **Filtragem Avançada**: Listagem de despesas com paginação e filtros por período.
+- **Tratamento Global de Exceções**: Middleware personalizado para padronizar respostas de erro (RFC 7807).
+- **Validação de Domínio**: Regras de negócio encapsuladas e validadas antes da persistência.
+
+---
+
+## 🛠️ Como Executar
+
+Você pode rodar a aplicação de duas formas: totalmente em containers ou em modo híbrido.
+
+### Pré-requisitos
+- Docker Desktop instalado.
+- .NET 9 SDK (apenas para rodar localmente fora do Docker).
+
+### Configuração Inicial (.env)
+Duplique o arquivo `.env.example` e renomeie para `.env`.
+
+```bash
 cp .env.example .env
-# No Windows: copy .env.example .env
-```
-2. Defina seus segredos: Abra o arquivo .env recém-criado e preencha os valores. O Docker Compose lerá este arquivo automaticamente.
-
-```Ini, TOML
-POSTGRES_USER=admin
-POSTGRES_PASSWORD=minhasenhasuperforte
-POSTGRES_DB=minha_api_db
+# Windows: copy .env.example .env
 ```
 
-### 2. Para rodar Localmente (Debug / F5 no Visual Studio)
+Opção 1: Via Docker Compose (Recomendado)
+Sobe a API e o Banco de Dados PostgreSQL automaticamente.
 
-Este método é usado quando você quer rodar o código C# na sua máquina (para usar breakpoints, etc), mas conectando ao banco de dados.
 
-Usamos o .NET User Secrets para isso.
-
-1. Inicialize os segredos (caso ainda não tenha feito): No terminal, dentro da pasta do projeto (.csproj):
-```Bash
-dotnet user-secrets init
-```
-2. Configure a Connection String: Execute o comando abaixo. Note que aqui o Host é localhost (pois o banco está exposto na sua máquina), diferente do Docker onde o host é o nome do serviço.
-```Bash
-dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Host=localhost;Port=5432;Database=minha_api_db;Username=admin;Password=minhasenhasuperforte"
-```
-
-## 🏃 Como Executar o Projeto
-
-**Opção A: Via Docker (Full Stack)**
-Para subir a aplicação completa (API + Banco):
-
-```Bash
-# Sobe os containers em segundo plano
+```bash
 docker-compose up -d
 ```
 
-A API estará disponível em: http://localhost:8080 (ou a porta definida no seu docker-compose).
+A API estará disponível em: http://localhost:8080/scalar/v1 (Documentação interativa).
 
-**Opção B: Modo Híbrido (App Local + Banco Docker)**
+Opção 2: Desenvolvimento Local (Debug)
+Rode apenas o banco no Docker e a aplicação na sua máquina.
 
-Ideal para desenvolvimento diário e debug.
-
-Suba apenas o banco de dados: Isso garante que o Postgres esteja rodando para sua API se conectar.
+Suba o banco:
 
 ```Bash
 docker-compose up -d db
 ```
-Rode a aplicação .NET: Pelo Visual Studio (F5) ou terminal:
 
-```Bash
-dotnet run
+Configure a Connection String (User Secrets):
+
+```bash
+
+dotnet user-secrets init
+dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Host=localhost;Port=5432;Database=savings_db;Username=admin;Password=root"
 ```
+
+Execute a API:
+
+```bash
+dotnet run --project src/Savings.Api
+```
+
+## 🧪 Testes
+O projeto inclui testes de unidade para validar regras de negócio e validadores.
+
+```bash
+dotnet test
+```
+
+## 📄 Licença
+Este projeto está sob a licença MIT.
